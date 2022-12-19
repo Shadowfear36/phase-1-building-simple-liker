@@ -3,6 +3,46 @@ const EMPTY_HEART = '♡'
 const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
+// Query the heart button
+let likeBtn = document.querySelector('.like');
+let heart = document.querySelector('.like span');
+let errorDiv = document.querySelector('#modal');
+let errorMessage = document.querySelector('#modal-message');
+
+console.log(likeBtn.innerText);
+//Listen for click on the like button
+likeBtn.addEventListener('click', onLikeClick);
+
+
+
+function onLikeClick() {
+  if ( heart.innerText === EMPTY_HEART ) {
+    heart.innerText = FULL_HEART; 
+    heart.classList.toggle('activated-heart');
+    mimicServerCall()
+    .then(object => console.log(object))
+    .catch(error => 
+      {
+        console.log("error has occured")
+        errorDiv.classList.toggle('hidden');
+        errorMessage.innerText = error;
+        setTimeout(() => errorDiv.classList.toggle('hidden'), 3000);
+      })
+  } else if ( heart.innerText === FULL_HEART){
+    heart.innerText = EMPTY_HEART;
+    heart.classList.remove('activated-heart');
+    mimicServerCall()
+    .then(object => console.log(object))
+    .catch(error => 
+      {
+        console.log("error has occured")
+        errorDiv.classList.toggle('hidden')
+        errorMessage.innerText = error;
+        setTimeout(() => errorDiv.classList.toggle('hidden'), 3000);
+      });
+  }
+  console.log("clicked like button");
+}
 
 
 
